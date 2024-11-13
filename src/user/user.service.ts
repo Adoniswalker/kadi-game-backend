@@ -7,7 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import * as bcrypt from 'bcrypt';
-import { instanceToPlain } from "class-transformer";
+import { instanceToPlain } from 'class-transformer';
 
 @Injectable()
 export class UserService {
@@ -19,7 +19,7 @@ export class UserService {
     email: string,
     phoneNumber: string,
     password: string,
-  ):Promise<Partial<User>> {
+  ): Promise<Partial<User>> {
     // Check if user with the email or phone number already exists
     const existingUser = await this.userRepository.findOne({
       where: [{ email }, { phoneNumber }],
@@ -42,6 +42,7 @@ export class UserService {
 
     return instanceToPlain(this.userRepository.save(newUser));
   }
+
   async login(emailOrPhone: string, password: string): Promise<Partial<User>> {
     // Find the user by email or phone number
     const user = await this.userRepository.findOne({
